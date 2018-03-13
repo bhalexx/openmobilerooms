@@ -1,0 +1,137 @@
+{% extends 'base.html.twig' %}
+
+{% block heading %}
+    <div class="container mt-3">
+    	<div class="row">
+            <div class="col">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{{ path('mobiles') }}">Mobiles</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="{{ path('search', { manufacturer: mobile.manufacturer.id }) }}">{{ mobile.manufacturer.name }}</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            {{ mobile.name }}
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block body %}
+	<div class="row">
+        <!-- Pictures -->
+        <div class="col-12 col-lg-6">
+            <div class="card bg-light mb-3">
+                <div class="card-body">
+                    <div id="slider" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            {% for picture in mobile.pictures %}
+                                <li data-target="#slider" data-slide-to="{{ loop.index0 }}" {% if loop.first %}class="active"{% endif %}></li>
+                            {% endfor %}
+                        </ol>
+                        <div class="carousel-inner">
+                            {% for picture in mobile.pictures %}
+                                <div class="carousel-item {% if loop.first %}active{% endif %}">
+                                    <img class="d-block w-50 mr-auto ml-auto" src="{{ picture.path }}" alt="{{ mobile.name }}">
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <a class="carousel-control-prev" href="#slider" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#slider" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- About -->
+        <div class="col-12 col-lg-6 add_to_cart_block">
+            <div class="card bg-light mb-3">
+                <div class="card-body">
+                    <h2 class="d-flex">
+                        {{ mobile.name }} - {{ mobile.memory }}Go
+                    </h2>
+                    <p>
+                        <span class="badge badge-secondary">{{ mobile.manufacturer.name }}</span>
+                    </p>
+                    <p class="h3 text-info">
+                        Prix : {{ mobile.price }} €
+                    </p>
+                    <p class="text-warning">
+                        Stock limité : {{ mobile.stock }}
+                    </p>
+                       
+                    <a href="#" class="btn btn-info btn-lg btn-block text-uppercase">
+                        <span class="fas fa-shopping-cart"></span> Ajouter au panier
+                    </a>
+                    <div class="product_rassurance">
+                        <ul class="list-inline">
+                            <li class="list-inline-item">
+                                <span class="fas fa-truck fa-2x"></span><br/>Livraison rapide
+                            </li>
+                            <li class="list-inline-item">
+                                <span class="fas fa-credit-card fa-2x"></span><br/>Paiement sécurisé
+                            </li>
+                            <li class="list-inline-item">
+                                <span class="fas fa-thumbs-up fa-2x"></span><br/>Grande qualité
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="datasheet p-3 mb-2 bg-secondary text-white">
+                        <a href="#features" class="text-white">
+                            <span class="fas fa-list-ul"></span> Voir les caractéristiques
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" id="features">
+        <!-- Features -->
+        <div class="col-12">
+            <div class="card border-light mb-3">
+                <div class="card-header bg-info text-white text-uppercase">
+                    <span class="fas fa-list-ul"></span> Caractéristiques
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th scope="row">Fabricant</th>
+                                <td>{{ mobile.manufacturer.name }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">OS</th>
+                                <td>{{ mobile.os.name }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Mémoire</th>
+                                <td>{{ mobile.memory }} Go</td>
+                            </tr>
+                            {% for feature in mobile.features %}
+                                <tr>
+                                    <th scope="row">{{ feature.name }}</th>
+                                    <td>{{ feature.value }}</td>
+                                </tr>
+                            {% endfor %}
+                            <tr>
+                                <th scope="row">Garantie</th>
+                                <td>1 an</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+{% endblock %}
