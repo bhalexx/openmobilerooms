@@ -1,13 +1,71 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
-    OpenMobileRooms
+{% block heading %}
+	<section class="jumbotron text-center">
+	    <div class="container">
+	        <h1 class="jumbotron-heading text-uppercase">Trouvez le mobile aussi smart que vous</h1>
+	        <p class="lead text-muted mb-0">
+	        	Retrouvez notre catalogue de smartphones et laissez-vous tenter !
+	        </p>
+	    </div>
+	</section>
+{% endblock %}
 
-    {# <ul class="list-group">
-    	{% for manufacturer in manufacturers %}
-    		<li class="list-group-item">
-    			{{ manufacturer.name }}
-    		</li>
-    	{% endfor %}
-    </ul> #}
+{% block body %}
+	<div class="row">
+        <div class="col-12 col-sm-3">
+            <div class="card bg-light mb-3">
+                <div class="card-header bg-info text-white text-uppercase">
+                	<span class="fas fa-sliders-h"></span> Affiner ma recherche
+                </div>
+                <ul class="list-group category_block">
+                	<li class="list-group-item disabled text-center text-uppercase">Fabricants</li>
+                	{% for manufacturer in manufacturers %}
+                		<li class="list-group-item">
+                			<a href="{{ path('search', { manufacturer: manufacturer.id }) }}">{{ manufacturer.name }}</a>
+                		</li>
+                	{% endfor %}
+                </ul>
+                <div class="card-footer text-uppercase">
+                    <a href="{{ path('mobiles') }}">
+                        <span class="fa fa-ban"></span> Annuler la recherche
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="row">
+            	{% for mobile in mobiles.data %}
+            		<div class="col-12 col-md-6 col-lg-4">
+            			<div class="card">
+	                        <img class="card-img-top" src="{{ mobile.pictures[0].path }}" alt="Card image cap">
+	                        <div class="card-body">
+	                            <h5 class="card-title text-center">
+	                            	<a href="{{ path('single_mobile', { id: mobile.id }) }}" title="Voir produit">{{ mobile.name }}</a>
+	                            </h5>
+	                            <p class="card-text">
+	                            	{{ mobile.memory }}Go - {{ mobile.os.name }}<br/>
+	                            	Plus que {{ mobile.stock }} en stock !
+	                            </p>
+	                            <div class="row">
+	                            </div>
+	                        </div>
+	                        <div class="card-footer">
+	                        	<p class="btn btn-danger btn-block">{{ mobile.price }} €</p>
+	                        	<a href="{{ path('single_mobile', { id: mobile.id }) }}" title="Voir produit" class="btn btn-info btn-block">Voir</a>
+	                        </div>
+	                    </div>
+	                </div>
+            	{% else %}
+            		<p class="display-4 text-center">
+                        Oops votre recherche n'a retourné aucun résultat, mais cela ne saurait tarder ;)
+                    </p>
+            	{% endfor %}            	
+            </div>
+            {% if mobiles.meta.total_pages > 1 %}
+            	<hr/>
+            	{% include 'partials/pagination.html.twig' with { 'meta': mobiles.meta, 'pageName': app.request.attributes.get('_route') } %}
+			{% endif %}
+        </div>
+    </div>
 {% endblock %}

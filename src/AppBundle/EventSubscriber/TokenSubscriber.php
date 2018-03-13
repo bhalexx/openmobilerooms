@@ -90,6 +90,7 @@
 	        } catch (ClientException $e) {
 	            $r = $e->getResponse();
 	            $error = json_decode($r->getBody()->getContents(), true);
+	            $this->session->clear();
 	            if ($error['error'] === 'invalid_grant') {
 	                throw new BadCredentialsException();
 	            }
