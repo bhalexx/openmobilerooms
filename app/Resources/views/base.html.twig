@@ -20,19 +20,32 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
+                        <li class="nav-item {% if 'mobiles' in app.request.get('_route')  %}active{% endif %}">
                             <a class="nav-link" href="#">
-                                Accueil <span class="sr-only">(current)</span>
+                                Mobiles 
+                                {% if 'mobiles' in app.request.get('_route')  %}
+                                    <span class="sr-only">(current)</span>
+                                {% endif %}
                             </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
                         </li>
                     </ul>
                     <div class="my-2 my-lg-0">
-                        <a href="#">
-                            <span class="fas fa-shopping-cart"></span>        
-                        </a>
+                        <ul class="navbar-nav">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="fas fa-user"></span>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="#">Inscription</a>
+                                    <a class="dropdown-item" href="#">Connexion</a>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <span class="fas fa-shopping-cart"></span>        
+                                </a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>

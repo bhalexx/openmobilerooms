@@ -30,9 +30,11 @@
                 <div class="card-body">
                     <div id="slider" class="carousel slide" data-ride="carousel">
                         <ol class="carousel-indicators">
-                            {% for picture in mobile.pictures %}
-                                <li data-target="#slider" data-slide-to="{{ loop.index0 }}" {% if loop.first %}class="active"{% endif %}></li>
-                            {% endfor %}
+                            {% if mobile.pictures is not empty %}
+                                {% for picture in mobile.pictures %}
+                                    <li data-target="#slider" data-slide-to="{{ loop.index0 }}" {% if loop.first %}class="active"{% endif %}></li>
+                                {% endfor %}
+                            {% endif %}
                         </ol>
                         <div class="carousel-inner">
                             {% for picture in mobile.pictures %}
@@ -87,7 +89,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="datasheet p-3 mb-2 bg-secondary text-white">
+                    <div class="p-3 mb-2 bg-secondary text-white">
                         <a href="#features" class="text-white">
                             <span class="fas fa-list-ul"></span> Voir les caractéristiques
                         </a>
