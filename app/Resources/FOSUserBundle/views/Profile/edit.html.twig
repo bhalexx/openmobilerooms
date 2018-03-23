@@ -1,0 +1,24 @@
+{% extends "@FOSUser/layout.html.twig" %}
+
+{% block title %}
+  {{ parent() }} Modifier mon profil
+{% endblock %}
+
+{% block heading %}
+	<section class="jumbotron text-center">
+	    <div class="container">
+	        <h1 class="display-4">Bonjour {{ app.user.username }} !</h1>
+	        <p class="lead text-muted mb-0">
+	        	Modifiez votre profil ci-dessous.
+	        </p>
+	    </div>
+	</section>
+{% endblock %}
+
+{% block fos_user_content %}
+	<div class="row justify-content-md-center">
+		<div class="col">
+			{% include "@FOSUser/Profile/edit_content.html.twig" %}
+		</div>
+	</div>
+{% endblock fos_user_content %}

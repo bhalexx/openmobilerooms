@@ -1,0 +1,26 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+<div class="fos_user_user_show">
+    <p>
+    	<b>Prénom</b> : {{ user.firstname }}
+    </p>
+    <p>
+    	<b>Nom</b> : {{ user.lastname }}
+    </p>
+    <p>
+    	<b>{{ 'profile.show.username'|trans }}</b> : {{ user.username }}
+    </p>
+    <p>
+    	<b>{{ 'profile.show.email'|trans }}</b> : {{ user.email }}
+    </p>
+
+    {# Waiting for API V2 #}
+    {# <p>
+    	<b>Numéro de téléphone</b> : {{ user.phone }}
+    </p> #}
+    {# <div class="options">
+		<a href="{{ path('fos_user_profile_edit') }}" class="btn btn-info">
+		 	<span class="fas fa-pencil-alt"></span> Modifier mon profil
+		</a>
+	</div> #}
+</div>

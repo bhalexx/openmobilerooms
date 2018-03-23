@@ -31,15 +31,27 @@
                     </ul>
                     <div class="my-2 my-lg-0">
                         <ul class="navbar-nav">
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="fas fa-user"></span>
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="#">Inscription</a>
-                                    <a class="dropdown-item" href="#">Connexion</a>
-                                </div>
-                            </li>
+                            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="fas fa-user"></span> {{ app.user.username }}
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="{{ path('fos_user_profile_show') }}">Profil</a>
+                                        <a class="dropdown-item" href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+                                    </div>
+                                </li>
+                            {% else %}
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="fas fa-user"></span>
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="{{ path('fos_user_registration_register') }}">Inscription</a>
+                                        <a class="dropdown-item" href="{{ path('fos_user_security_login') }}">Connexion</a>
+                                    </div>
+                                </li>
+                            {% endif %}
                             <li class="nav-item">
                                 <a href="#" class="nav-link">
                                     <span class="fas fa-shopping-cart"></span>        
