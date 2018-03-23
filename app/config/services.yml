@@ -9,7 +9,7 @@ services:
         # automatically injects dependencies in your services
         autowire: true
         # automatically registers your services as commands, event subscribers, etc.
-        autoconfigure: true
+        autoconfigure: false
         # this means you cannot fetch services directly from the container via $container->get()
         # if you need to do this, you can override this setting on individual services
         public: false
@@ -30,6 +30,7 @@ services:
         tags: ['controller.service_arguments']
 
     AppBundle\EventSubscriber\TokenSubscriber:
+        autoconfigure: true
         arguments:
             $client: '@csa_guzzle.client.bilemo_api'
             $bilemoTokenUrl: '%bilemo_token_url%'
@@ -38,3 +39,47 @@ services:
             $username: '%username%'
             $password: '%password%'
             $session: '@session'
+
+    app.api_client:
+        class: AppBundle\Service\ApiClient
+        public: true
+        arguments:
+            $serializer: '@serializer'
+            $session: '@session'
+            $client: '@csa_guzzle.client.bilemo_api'
+
+    AppBundle\Service\ApiClient: '@app.api_client'
+
+    app.form.registration:
+        class: AppBundle\Form\RegistrationType
+        tags:
+            - { name: form.type, alias: app_user_registration }
+
+    app.form.profile:
+        class: AppBundle\Form\ProfileType
+        tags:
+            - { name: form.type, alias: app_user_profile }
+
+    app.registration_listener:
+        class: AppBundle\EventListener\RegistrationListener
+        arguments: 
+            $router: '@router'
+            $dispatcher: '@event_dispatcher'
+        tags:
+            - { name: kernel.event_subscriber }
+
+    # Waiting for API V2
+    # app.profile_listener:
+    #     class: AppBundle\EventListener\ProfileListener
+    #     arguments: 
+    #         $router: '@router'
+    #         $dispatcher: '@event_dispatcher'
+    #     tags:
+    #         - { name: kernel.event_subscriber }
+
+    app.user_subscriber:
+        class: AppBundle\EventSubscriber\UserSubscriber
+        arguments:
+            $apiClient: '@app.api_client'
+        tags:
+            - { name: kernel.event_subscriber }

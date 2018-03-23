@@ -1,0 +1,34 @@
+{{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
+    <div class="row">
+        <div class="col-sm-6">
+            {{ form_row(form.firstname) }}
+        </div>
+        <div class="col-sm-6">
+           {{ form_row(form.lastname) }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+        	{{ form_row(form.username) }}
+        </div>
+        <div class="col-sm-6">
+    	   {{ form_row(form.email) }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            {{ form_row(form.plainPassword.first) }}
+        </div>
+        <div class="col-sm-6">
+           {{ form_row(form.plainPassword.second) }}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col text-center">
+            <input type="submit" value="Inscription" class="btn btn-info" />
+        </div>
+    </div>
+{{ form_end(form) }}

@@ -1,0 +1,28 @@
+{% extends "@FOSUser/layout.html.twig" %}
+
+{% block title %}
+  {{ parent() }} Inscription
+{% endblock %}
+
+{% block heading %}
+	<section class="jumbotron text-center">
+	    <div class="container">
+	        <h1 class="display-4">Vous y êtes presque !</h1>
+	        <p class="lead text-muted mb-4">
+	        	Inscrivez-vous pour commander le mobile aussi smart que vous !<br/>
+	        	Déjà client d'OpenMobileRooms ? Connectez-vous !
+	        </p>
+	        <p class="lead mb-0">
+	        	<a href="{{ path('fos_user_security_login') }}" class="btn btn-info">Connexion</a>
+	        </p>
+	    </div>
+	</section>
+{% endblock %}  
+
+{% block fos_user_content %}
+	<div class="row justify-content-md-center">
+		<div class="col">
+			{% include "@FOSUser/Registration/register_content.html.twig" %}
+	   	</div>
+	</div>
+{% endblock fos_user_content %}
