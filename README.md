@@ -45,6 +45,8 @@ Once you got your credentials, you can go on:
 ### Customization
 Assets are located in `app\Resources\assets`, and minified and built by Encore in `web\build`. To add/edit or any other configuration customization, look at `webpack.config.js`!
 
+You can modify the max number of mobiles by editing `mobile_limit` in `config.yml`.
+
 ### Documentation
 This application project is as documented as possible, so you can find:
 - some [diagrams][9] to explain how the application communicates with the API
