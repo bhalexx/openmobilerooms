@@ -66,11 +66,11 @@
             		<p class="display-4 text-center">
                         Oops votre recherche n'a retourné aucun résultat, mais cela ne saurait tarder ;)
                     </p>
-            	{% endfor %}            	
+            	{% endfor %}
             </div>
             {% if mobiles.meta.total_pages > 1 %}
             	<hr/>
-            	{% include 'partials/pagination.html.twig' with { 'meta': mobiles.meta, 'pageName': app.request.attributes.get('_route') } %}
+            	{% include 'partials/_pagination.html.twig' with { 'meta': mobiles.meta, 'pageName': app.request.attributes.get('_route') } %}
 			{% endif %}
         </div>
     </div>
