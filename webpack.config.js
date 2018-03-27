@@ -1,6 +1,6 @@
 var Encore = require('@symfony/webpack-encore');
 
-var devPath = '/symfony/bilemo_admin/web/build';
+var devPath = '/symfony/openmobilerooms/web/build';
 var prodPath = '/web/build';
 var path = Encore.isProduction() ? prodPath : devPath;
 

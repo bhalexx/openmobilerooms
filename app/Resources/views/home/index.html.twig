@@ -20,12 +20,12 @@
         <div class="col-12 col-sm-3">
             <div class="card bg-light mb-3">
                 <div class="card-header bg-info text-white text-uppercase">
-                	<span class="fas fa-sliders-h"></span> Affiner ma recherche
+                    <span class="fas fa-sliders-h"></span> Affiner ma recherche
                 </div>
                 <ul class="list-group category_block">
-                	<li class="list-group-item disabled text-center text-uppercase">Fabricants</li>
+                    <li class="list-group-item disabled text-center text-uppercase">Fabricants</li>
                 	{% for manufacturer in manufacturers %}
-                		<li class="list-group-item">
+                		<li class="list-group-item {% if 'search' in app.request.get('_route') and app.request.get('_route_params').manufacturer == manufacturer.id %}bg-info{% endif %}">
                 			<a href="{{ path('search', { manufacturer: manufacturer.id }) }}">{{ manufacturer.name }}</a>
                 		</li>
                 	{% endfor %}
