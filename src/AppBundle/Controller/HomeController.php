@@ -5,12 +5,13 @@ namespace AppBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\Mobile;
 
 class HomeController extends Controller
 {
     /**
      * @Route(
-     *     "/{page}", 
+     *     "/{page}",
      *     name = "mobiles",
      *     requirements = { "page" = "\d+" },
      *     defaults = { "page" = 1 }
@@ -19,7 +20,7 @@ class HomeController extends Controller
     public function indexAction(Request $request, $page)
     {
         $apiClient = $this->get('app.api_client');
-        $uri = sprintf('api/mobiles?limit=%d&offset=%s', $this->getParameter('mobile_limit'), $page);
+        $uri = sprintf('api/mobiles?limit=%d&offset=%s', Mobile::NUMBER_OF_ITEMS, $page);
 
         $manufacturers = $apiClient->request('api/manufacturers');
         $mobiles = $apiClient->request($uri);
@@ -41,7 +42,7 @@ class HomeController extends Controller
     public function search(Request $request, $manufacturer, $page)
     {
         $apiClient = $this->get('app.api_client');
-        $uri = sprintf('api/mobiles?manufacturer=%d&limit=%d&offset=%s', $manufacturer, $this->getParameter('mobile_limit'), $page);
+        $uri = sprintf('api/mobiles?manufacturer=%d&limit=%d&offset=%s', $manufacturer, Mobile::NUMBER_OF_ITEMS, $page);
 
         $manufacturers = $apiClient->request('api/manufacturers');
         $mobiles = $apiClient->request($uri);

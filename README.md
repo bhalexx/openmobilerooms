@@ -37,7 +37,7 @@ Once you got your credentials, you can go on:
 1. Clone this repository on your local machine by using this command line in your folder `git clone https://github.com/bhalexx/openmobilerooms.git`.
 2. Rename `app/config/parameters.yml.dist` in `app/config/parameters.yml`, edit database parameters with yours and fill parameters with the credentials you got from Bilemo.
 3. Edit API URI (e.g.: URI from your forked [API project][1]) from `config(_dev).yml` in `csa_guzzle` section (parameter `base_uri`).
-5. In project folder open a new terminal window and execute command line `composer install`. 
+5. In project folder open a new terminal window and execute command line `composer install`.
 6. Then execute command line `npm install` to install node modules for assets management.
 
 **Your project is ready to be run!**
@@ -45,7 +45,7 @@ Once you got your credentials, you can go on:
 ### Customization
 Assets are located in `app\Resources\assets`, and minified and built by Encore in `web\build`. To add/edit or any other configuration customization, look at `webpack.config.js`!
 
-You can modify the max number of mobiles by editing `mobile_limit` in `config.yml`.
+You can modify the max number of mobiles by editing `NUMBER_OF_ITEMS` constant value in the `AppBundle\Entity\Mobile.php` file.
 
 ### Documentation
 This application project is as documented as possible, so you can find:

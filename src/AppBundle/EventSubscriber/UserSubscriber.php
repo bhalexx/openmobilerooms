@@ -1,5 +1,5 @@
 <?php
-	
+
 namespace AppBundle\EventSubscriber;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -9,56 +9,56 @@ use AppBundle\Entity\ApiUser;
 
 class UserSubscriber implements EventSubscriberInterface
 {
-	private $apiClient;
+    private $apiClient;
 
-	public function __construct(ApiClient $apiClient)
-	{
-		$this->apiClient = $apiClient;
-	}
+    public function __construct(ApiClient $apiClient)
+    {
+        $this->apiClient = $apiClient;
+    }
 
-	public static function getSubscribedEvents()
-	{
-		return array(
-			UserEvents::USER_CREATED => 'onUserCreation',
-			UserEvents::USER_UPDATED => 'onUserUpdate',
-			UserEvents::USER_DELETED => 'onUserDeletion'
-		);
-	} 
+    public static function getSubscribedEvents()
+    {
+        return array(
+            UserEvents::USER_CREATED => 'onUserCreation',
+            UserEvents::USER_UPDATED => 'onUserUpdate',
+            UserEvents::USER_DELETED => 'onUserDeletion'
+        );
+    }
 
-	public function onUserCreation(UserEvents $event)
-	{
-		$apiUser = $this->setApiUser($event->getUser());
-		
-    	$this->apiClient->request('api/users', 'POST', $apiUser);
-	}
+    public function onUserCreation(UserEvents $event)
+    {
+        $apiUser = $this->setApiUser($event->getUser());
 
-	public function onUserUpdate(UserEvents $event)
-	{
-		// Waiting for API V2
-		// $user = $event->getUser();
+        $this->apiClient->request('api/users', 'POST', $apiUser);
+    }
 
-		// $uri = 'api/users/'.$user->getId();
+    public function onUserUpdate(UserEvents $event)
+    {
+        // Waiting for API V2
+        // $user = $event->getUser();
 
-		// $apiUser = $this->setApiUser($user);
-		
-  //   	$this->apiClient->request($uri, 'PUT', $apiUser);
-	}
+        // $uri = 'api/users/'.$user->getId();
 
-	public function onUserDeletion(UserEvents $event)
-	{
-		
-	}
+        // $apiUser = $this->setApiUser($user);
 
-	private function setApiUser($user)
-	{
-		$apiUser = new ApiUser();
-		$apiUser
-			->setEmail($user->getEmail())
-			->setFirstname($user->getFirstname())
-			->setLastname($user->getLastname())
-			->setPhone($user->getPhone())
-			->setUsername($user->getUsername());
+        // $this->apiClient->request($uri, 'PUT', $apiUser);
+    }
 
-		return $apiUser;
-	}
+    public function onUserDeletion(UserEvents $event)
+    {
+    	//
+    }
+
+    private function setApiUser($user)
+    {
+        $apiUser = new ApiUser();
+        $apiUser
+            ->setEmail($user->getEmail())
+            ->setFirstname($user->getFirstname())
+            ->setLastname($user->getLastname())
+            ->setPhone($user->getPhone())
+            ->setUsername($user->getUsername());
+
+        return $apiUser;
+    }
 }

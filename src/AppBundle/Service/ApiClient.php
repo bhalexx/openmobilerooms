@@ -28,18 +28,18 @@ class ApiClient
             'Content-type' => 'application/json',
             'Authorization' => 'Bearer '.$this->session->get('access_token')
         ];
-    } 
+    }
 
     public function request($uri, $method = 'GET', $body = array())
     {
         $response = null;
 
-        switch ($method) {   
+        switch ($method) {
             case 'POST':
                 $request = $this->client->post($uri, [
                     'headers' => $this->headers,
                     'body' => $this->serializer->serialize($body, 'json')
-                ]); 
+                ]);
                 break;
             default: // GET
                 $request = $this->client->get($uri, [

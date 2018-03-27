@@ -20,7 +20,7 @@ class UserEvents extends Event
 	/**
 	 * This event occus when a user is deleted
 	 */
-	const USER_DELETED = 'app.user_deleted'; 
+	const USER_DELETED = 'app.user_deleted';
 
 	protected $user;
 
