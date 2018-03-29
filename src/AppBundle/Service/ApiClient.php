@@ -41,9 +41,20 @@ class ApiClient
                     'body' => $this->serializer->serialize($body, 'json')
                 ]);
                 break;
+            case 'PUT':
+                $request = $this->client->put($uri, [
+                    'headers' => $this->headers,
+                    'body' => $this->serializer->serialize($body, 'json')
+                ]);
+                break;
+            case 'DELETE':
+                $request = $this->client->delete($uri, [
+                    'headers' => $this->headers
+                ]);
+                break;
             default: // GET
                 $request = $this->client->get($uri, [
-                    'headers' => $this->headers,
+                    'headers' => $this->headers
                 ]);
         }
 

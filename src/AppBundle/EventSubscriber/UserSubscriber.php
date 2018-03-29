@@ -3,6 +3,7 @@
 namespace AppBundle\EventSubscriber;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use FOS\UserBundle\Model\UserManager;
 use AppBundle\Event\UserEvents;
 use AppBundle\Service\ApiClient;
 use AppBundle\Entity\ApiUser;
@@ -10,10 +11,12 @@ use AppBundle\Entity\ApiUser;
 class UserSubscriber implements EventSubscriberInterface
 {
     private $apiClient;
+    private $userManager;
 
-    public function __construct(ApiClient $apiClient)
+    public function __construct(ApiClient $apiClient, UserManager $userManager)
     {
         $this->apiClient = $apiClient;
+        $this->userManager = $userManager;
     }
 
     public static function getSubscribedEvents()
@@ -27,26 +30,33 @@ class UserSubscriber implements EventSubscriberInterface
 
     public function onUserCreation(UserEvents $event)
     {
-        $apiUser = $this->setApiUser($event->getUser());
+        $user = $event->getUser();
+        $apiUser = $this->setApiUser($user);
 
-        $this->apiClient->request('api/users', 'POST', $apiUser);
+        $newUser = $this->apiClient->request('api/users', 'POST', $apiUser);
+        $user->setApiId($newUser['id']);
+
+        $this->userManager->updateUser($user);
     }
 
     public function onUserUpdate(UserEvents $event)
     {
-        // Waiting for API V2
-        // $user = $event->getUser();
+        $user = $event->getUser();
+        $uri = 'api/users/'.$user->getApiId();
 
-        // $uri = 'api/users/'.$user->getId();
+        $apiUser = $this->setApiUser($user);
 
-        // $apiUser = $this->setApiUser($user);
-
-        // $this->apiClient->request($uri, 'PUT', $apiUser);
+        $this->apiClient->request($uri, 'PUT', $apiUser);
     }
 
     public function onUserDeletion(UserEvents $event)
     {
-    	//
+        $user = $event->getUser();
+        $uri = 'api/users/'.$user->getApiId();
+
+        $this->apiClient->request($uri, 'DELETE');
+
+        $this->userManager->deleteUser($user);
     }
 
     private function setApiUser($user)

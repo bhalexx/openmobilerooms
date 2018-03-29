@@ -41,6 +41,6 @@ class ProfileListener implements EventSubscriberInterface
 
 		// Dispatch UserEvent update to send new ApiUser to Bilemo API
 		$userEvent = new UserEvents($user);
-		$this->dispatcher->dispatch('app.user_updated', $userEvent);
+		$this->dispatcher->dispatch(UserEvents::USER_UPDATED, $userEvent);
 	}
 }

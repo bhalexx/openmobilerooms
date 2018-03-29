@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  {{ parent() }} Supprimer mon compte
+{% endblock %}
+
+{% block heading %}
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="display-4">Vous allez nous manquer...</h1>
+        </div>
+    </section>
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-xs-12">
+            <p>
+                Nous sommes tristes de vous voir partir, {{ user.username }} ! <span class="far fa-frown"></span><br/>
+                Attention, nous tenons à vous prévenir que cette action est irréversible. Cliquez sur "Supprimer" pour valider votre demande de suppression de compte.
+            </p>
+
+            <form action="{{ path('delete_user') }}" method="post">
+                <a href="{{ path('fos_user_profile_show') }}" class="btn btn-secondary">
+                    <span class="fas fa-hand-point-left"></span> Annuler
+                </a>
+                <button type="submit" class="btn btn-danger">
+                    <span class="fas fa-trash-alt"></span> Supprimer
+                </button>
+                {# Generates CSRF token #}
+                {{ form_rest(form) }}
+            </form>
+        </div>
+    </div>
+{% endblock %}
