@@ -13,14 +13,15 @@
     <p>
     	<b>{{ 'profile.show.email'|trans }}</b> : {{ user.email }}
     </p>
-
-    {# Waiting for API V2 #}
-    {# <p>
-    	<b>Numéro de téléphone</b> : {{ user.phone }}
-    </p> #}
-    {# <div class="options">
-		<a href="{{ path('fos_user_profile_edit') }}" class="btn btn-info">
+    <p>
+    	<b>Numéro de téléphone</b> : {{ user.phone|default('non renseigné') }}
+    </p>
+    <div class="options">
+		<a href="{{ path('fos_user_profile_edit') }}" class="btn btn-info btn-sm">
 		 	<span class="fas fa-pencil-alt"></span> Modifier mon profil
 		</a>
-	</div> #}
+        <a href="{{ path('delete_user') }}" class="btn btn-danger btn-sm">
+            <span class="fas fa-trash-alt"></span> Supprimer mon compte
+        </a>
+    </div>
 </div>

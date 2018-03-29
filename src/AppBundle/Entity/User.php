@@ -25,6 +25,13 @@ class User extends BaseUser
     protected $id;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="api_id", type="integer", nullable=true)
+     */
+    protected $apiId;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="firstname", type="string", length=255)
@@ -63,6 +70,30 @@ class User extends BaseUser
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Get apiId
+     *
+     * @return int
+     */
+    public function getApiId()
+    {
+        return $this->apiId;
+    }
+
+    /**
+     * Set apiId
+     *
+     * @param int $apiId
+     *
+     * @return User
+     */
+    public function setApiId($apiId)
+    {
+        $this->apiId = $apiId;
+
+        return $this;
     }
 
     /**

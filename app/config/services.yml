@@ -62,24 +62,24 @@ services:
 
     app.registration_listener:
         class: AppBundle\EventListener\RegistrationListener
-        arguments: 
+        arguments:
             $router: '@router'
             $dispatcher: '@event_dispatcher'
         tags:
             - { name: kernel.event_subscriber }
 
-    # Waiting for API V2
-    # app.profile_listener:
-    #     class: AppBundle\EventListener\ProfileListener
-    #     arguments: 
-    #         $router: '@router'
-    #         $dispatcher: '@event_dispatcher'
-    #     tags:
-    #         - { name: kernel.event_subscriber }
+    app.profile_listener:
+        class: AppBundle\EventListener\ProfileListener
+        arguments:
+            $router: '@router'
+            $dispatcher: '@event_dispatcher'
+        tags:
+            - { name: kernel.event_subscriber }
 
     app.user_subscriber:
         class: AppBundle\EventSubscriber\UserSubscriber
         arguments:
             $apiClient: '@app.api_client'
+            $userManager: '@fos_user.user_manager'
         tags:
             - { name: kernel.event_subscriber }

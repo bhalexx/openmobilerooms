@@ -41,7 +41,7 @@ class RegistrationListener implements EventSubscriberInterface
 
 		// Dispatch UserEvent creation to send ApiUser to Bilemo API
 		$userEvent = new UserEvents($user);
-		$this->dispatcher->dispatch('app.user_created', $userEvent);
+		$this->dispatcher->dispatch(UserEvents::USER_CREATED, $userEvent);
 
 		//Redirect on HomePage
 		$url = $this->router->generate('mobiles');
